@@ -1,0 +1,32 @@
+name: ui tests
+
+on:
+  pull_request:
+    paths:
+      - "cyclops-ui/**"
+  push:
+    paths:
+      - "cyclops-ui/**"
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+      - name: Install dependencies
+        run: |
+          cd ${{ github.workspace }}/cyclops-ui
+          yarn install
+      - name: Run tests
+        run: |
+          cd ${{ github.workspace }}/cyclops-ui
+          yarn test
+      - name: Build
+        run: |
+          cd ${{ github.workspace }}/cyclops-ui
+          yarn build
